@@ -30,6 +30,10 @@ inputs:
     description: "Docker password. Set this to {{ secrets.GITHUB_TOKEN }} if publishing to GHCR."
     required: false
     default: ""
+  lunni-webhook-url:
+    description: "Lunni service webhook"
+    required: false
+    default: ""
 
   # https://github.com/docker/build-push-action/blob/master/action.yml -> inputs
   build-args:
@@ -181,6 +185,13 @@ runs:
         provenance: ${{ inputs.provenance }}
         secrets: ${{ inputs.secrets }}
         secret-files: ${{ inputs.secret-files }}
+
+    - name: Update service on Lunni
+      id: update-service
+      if: ${{ ( inputs.lunni-webhook-url != '' ) }}
+      shell: bash
+      run: |
+        curl --fail-with-body -X POST '${{ inputs.lunni-webhook-url }}'
 
     - name: Get Metadata
       id: get-metadata
