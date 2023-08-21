@@ -15,21 +15,21 @@ inputs:
     required: false
     default: "Dockerfile"
   image_name:
-    description: "Image name (excluding registry). Defaults to ?{{ github.repository }}."
+    description: "Image name (excluding registry). Defaults to {{ github.repository }}."
     required: false
     default: ""
   registry:
-    description: "Docker registry"
+    description: "Docker registry. Defaults to ghcr.io."
     required: true
     default: "ghcr.io"
-  login:
-    description: "Docker login"
+  username:
+    description: "Docker username. Defaults to {{ github.actor }}."
     required: false
     default: "${{ github.actor }}"
   password:
-    description: "Docker password"
+    description: "Docker password. Set this to {{ secrets.GITHUB_TOKEN }} if publishing to GHCR."
     required: false
-    default: "${{ secrets.GITHUB_TOKEN }}"
+    default: ""
 
   # https://github.com/docker/build-push-action/blob/master/action.yml -> inputs
   build-args:
@@ -156,10 +156,10 @@ runs:
 
     - name: Login
       uses: docker/login-action@v2
-      if: ${{ contains(inputs.registry, '.amazonaws.com') || ( inputs.login != '' && inputs.password != '' ) }}
+      if: ${{ contains(inputs.registry, '.amazonaws.com') || ( inputs.username != '' && inputs.password != '' ) }}
       with:
         registry: ${{ inputs.registry }}
-        username: ${{ inputs.login }}
+        username: ${{ inputs.username }}
         password: ${{ inputs.password }}
 
     - name: Build and push Docker images
