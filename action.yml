@@ -15,7 +15,7 @@ inputs:
     required: false
     default: "Dockerfile"
   image_name:
-    description: "Image name (excluding registry). Defaults to ${{ github.repository }}."
+    description: "Image name (excluding registry). Defaults to ?{{ github.repository }}."
     required: false
     default: ""
   registry:
