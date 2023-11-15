@@ -48,7 +48,8 @@ jobs:
 | `platforms` | List of target platforms for build (e.g. linux/amd64,linux/arm64,linux/riscv64,linux/ppc64le,linux/s390x,etc) |
 | `provenance` | Generate provenance attestation for the build |
 | `ssh` | List of SSH agent socket or keys to expose to the build |
-| `tags` | List of tags (supports https://github.com/docker/metadata-action#tags-input) |
+| `tags` | List of tags ([docs](https://github.com/docker/metadata-action#tags-input)) |
+| `flavor` | Defines a global behavior for tags: ([docs](https://github.com/docker/metadata-action#flavor-input)1 |
 | `target` | Sets the target stage to build |
 | `secrets` | List of secrets to expose to the build (e.g., key=string, GIT_AUTH_TOKEN=mytoken) |
 | `secret-files` | List of secret files to expose to the build (e.g., key=filename, MY_SECRET=./secret.txt) |

@@ -58,7 +58,10 @@ inputs:
     description: "List of SSH agent socket or keys to expose to the build"
     required: false
   tags:
-    description: "List of tags (supports https://github.com/docker/metadata-action#tags-input)"
+    description: "List of tags: https://github.com/docker/metadata-action#tags-input"
+    required: false
+  flavor:
+    description: "Defines a global behavior for tags: https://github.com/docker/metadata-action#flavor-input"
     required: false
   target:
     description: "Sets the target stage to build"
@@ -125,6 +128,7 @@ runs:
           type=raw,value=latest,enable={{is_default_branch}}
           type=sha,format=long
           ${{ inputs.tags }}
+        flavor: ${{ inputs.flavor }}
         labels: |
           org.opencontainers.image.source=https://github.com/${{ github.repository }}
 
